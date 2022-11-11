@@ -3,6 +3,9 @@ import (
 	iphdr "IPv4SoftwarePkg/ipheader"
 	"encoding/binary"
 )
+/*
+数据封装进IP数据报 data: yyz -> 0x79797a
+*/
 func IpPkt(src_addr uint32, dest_addr uint32) (*iphdr.IpHeader, []uint8){
 	
 	var IP_VER_HLEN 	uint8 = 0x45		/*定义IP首部的版本和首部长度, IPv4,首部长度20,对应0x45*/

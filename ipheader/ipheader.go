@@ -1,6 +1,8 @@
 package ipheader
 
-/*IP首部*/
+/*
+根据IP首部定义结构体
+*/
 type IpHeader struct {
 	VerHlen					uint8		/*IP首部的版本和首部长度, 各占4位*/
 	Service					uint8		/*服务类型*/
