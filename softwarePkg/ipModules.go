@@ -7,7 +7,8 @@ import (
 	"log"
 )
 
-/*首部添加模块
+/*
+首部添加模块
 */
 func IpAddingModule(src_addr uint32, dest_addr uint32) (*iphdr.IpHeader, []uint8) {
 	/*数据封装进IP数据报*/
@@ -26,6 +27,25 @@ func IpAddingModule(src_addr uint32, dest_addr uint32) (*iphdr.IpHeader, []uint8
 	log.Println("计算完得到的首部校验和:",header.HeaderChecksum)
 	return header, data
 }
+
+/*
+处理模块, 当目的地址与本地地址相匹配时, 将数据报发送到重装模块, 否则发送到转发模块 
+*/
+func IpProcessingModule(header *iphdr.IpHeader, data []uint8, native_addr uint32)  {
+	/*目的地址与本地地址相匹配时, 将数据报发送到重装模块*/
+	if header.DestinationAddress == native_addr {
+		IpReassemblyModule(header,data)
+		return
+	}
+}
+
+/*
+重装模块
+*/
+func IpReassemblyModule(header *iphdr.IpHeader, data []uint8)  {
+	
+}
+
 /*
 IPv4首部校验和计算
 */
@@ -48,3 +68,4 @@ func IPv4CheckSum(data []byte) uint16 {
 	/*返回的时候求反*/
 	return uint16(^sum)
 }
+
