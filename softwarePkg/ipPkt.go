@@ -1,8 +1,11 @@
 package softwarepkg
+
 import (
 	iphdr "IPv4SoftwarePkg/ipheader"
 	"encoding/binary"
+	"log"
 )
+
 /*
 数据封装进IP数据报 data: yyz -> 0x79797a
 */
@@ -30,8 +33,10 @@ func IpPkt(src_addr uint32, dest_addr uint32) (*iphdr.IpHeader, []uint8){
 	IP_DATA_LEN := ipheader.Length-uint16(IP_HEADER_LEN)//32-20=12
 	var data = make([]uint8, IP_DATA_LEN)	
 	//hex(yyz) : 0x79797a
-	data[0] = 0x68
+	data[0] = 0x79
 	data[1] = 0x79
 	data[2] = 0x7a
+	log.Println("初始校验和:",ipheader.HeaderChecksum)
+	log.Println("数据:",data)
 	return &ipheader, data
 }
