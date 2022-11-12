@@ -31,12 +31,23 @@ func IpAddingModule(src_addr uint32, dest_addr uint32) (*iphdr.IpHeader, []uint8
 /*
 处理模块, 当目的地址与本地地址相匹配时, 将数据报发送到重装模块, 否则发送到转发模块 
 */
-func IpProcessingModule(header *iphdr.IpHeader, data []uint8, native_addr uint32)  {
+func IpProcessingModule(header *iphdr.IpHeader, data []uint8, native_addr uint32, gateway_addr uint32)  {
 	/*目的地址与本地地址相匹配时, 将数据报发送到重装模块*/
 	if header.DestinationAddress == native_addr {
+		log.Println("目的地址与本机地址相同, 数据报发送到重装模块...")
 		IpReassemblyModule(header,data)
 		return
 	}
+	/*本机是路由器时TTL-1*/
+	if native_addr == gateway_addr {
+		header.TimeToLive = header.TimeToLive-1
+	}
+	/*TTL小于等于0时, 丢弃数据报, 发送ICMP差错报文*/
+	if header.TimeToLive <= 0{
+		return
+	}
+	/*数据报发送到转发模块*/
+	
 }
 
 /*
@@ -44,6 +55,13 @@ func IpProcessingModule(header *iphdr.IpHeader, data []uint8, native_addr uint32
 */
 func IpReassemblyModule(header *iphdr.IpHeader, data []uint8)  {
 	
+}
+
+/*
+转发模块
+*/
+func IpForwardingModule(header *iphdr.IpHeader, data []uint8){
+
 }
 
 /*
