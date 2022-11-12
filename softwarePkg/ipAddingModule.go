@@ -12,7 +12,7 @@ import (
 */
 func IpAddingModule(src_addr uint32, dest_addr uint32) (*iphdr.IpHeader, []uint8) {
 	/*数据封装进IP数据报*/
-	log.Println("===开始将数据封装到数据报===")
+	log.Println("======开始将数据封装到数据报======")
 	header, data := IpPkt(src_addr, dest_addr)
 	log.Println("IP首部及数据已经封装到数据报!!!")
 	/*结构体转[]bype   type byte=uint8 */
