@@ -14,7 +14,7 @@ func IpPkt(src_addr uint32, dest_addr uint32) (*iphdr.IpHeader, []uint8){
 	var IP_VER_HLEN 	uint8 = 0x45		/*定义IP首部的版本和首部长度, IPv4,首部长度20,对应0x45*/
 	var IP_FRAGEMENT 	uint16 = 0x4000 	/*不分片*/
 	var IP_TTL 			uint8 = 0x80		/*TTL=128*/
-	var IP_PROTOCOL 	uint8 = 0x01		/*上层协议类型, 0x01表示ICMP*/
+	var IP_PROTOCOL 	uint8 = 0x01		/*上层协议类型, 此处0x01表示ICMP*/
 	//MTU := 1500							/*MTU大小*/
 	/*为IP首部各字段赋值*/
 	ipheader := iphdr.IpHeader{
