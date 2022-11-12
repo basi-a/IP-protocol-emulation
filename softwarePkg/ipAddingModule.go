@@ -7,8 +7,7 @@ import (
 	"log"
 )
 
-/*
-首部添加模块
+/*首部添加模块
 */
 func IpAddingModule(src_addr uint32, dest_addr uint32) (*iphdr.IpHeader, []uint8) {
 	/*数据封装进IP数据报*/
