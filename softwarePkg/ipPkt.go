@@ -6,7 +6,8 @@ import (
 	"log"
 )
 
-/*数据封装进IP数据报 data: yyz -> 0x79797a
+/*
+数据封装进IP数据报 data: yyz -> 0x79797a
 */
 func IpPkt(src_addr uint32, dest_addr uint32) (*iphdr.IpHeader, []uint8){
 	
