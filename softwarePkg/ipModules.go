@@ -80,5 +80,8 @@ func IpForwardingModule(header *iphdr.IpHeader, data []uint8, MTU int) {
 分片模块
 */
 func IpFragmentationModule(header *iphdr.IpHeader, data []uint8, MTU int) {
-	
+	if header.Length > uint16(MTU){
+		log.Println("数据报总长度大于MTU") 
+		
+	}
 }
