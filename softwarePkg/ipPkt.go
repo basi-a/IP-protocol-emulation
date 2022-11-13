@@ -3,7 +3,6 @@ package softwarepkg
 import (
 	iphdr "IPv4SoftwarePkg/ipheader"
 	"encoding/binary"
-	"log"
 )
 
 /*
@@ -35,7 +34,5 @@ func IpPkt(src_addr uint32, dest_addr uint32) (*iphdr.IpHeader, []uint8){
 	data[0] = 0x79
 	data[1] = 0x79
 	data[2] = 0x7a
-	log.Println("初始校验和:",ipheader.HeaderChecksum)
-	log.Println("数据:",data)
 	return &ipheader, data
 }
