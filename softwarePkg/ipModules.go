@@ -60,11 +60,12 @@ func IpAddingModule(src_addr uint32, dest_addr uint32) (*iphdr.IpHeader, []uint8
 	log.Println("数据:", data)
 
 	/*计算首部校验和, 然后赋值给首部校验和*/
+	log.Println("计算首部校验和......")
 	checkSum := IPv4CheckSum(headerbytes)
 	header.HeaderChecksum = checkSum
 	headerbytes = StructToBytes(header)
-	log.Println("计算得到的首部校验和:", header.HeaderChecksum)
-	log.Println("计算完校验和之后的首部:", headerbytes)
+	log.Println("首部校验和:", header.HeaderChecksum)
+	log.Println("首部:", headerbytes)
 	return header, data
 }
 
