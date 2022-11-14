@@ -12,6 +12,8 @@ func main()  {
 	log.Println("发送端发送数据报......")
 	header, data := pc.Send()
 	fmt.Println()
+	header, data = pc.Switcher(header, data)
+	fmt.Println()
 	log.Println("接收端接收数据报......")
 	pc.Receive(header, data)
 }

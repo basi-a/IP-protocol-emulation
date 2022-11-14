@@ -60,3 +60,11 @@ func Receive(header *iphdr.IpHeader, data []uint8)  {
 	}
 	
 }
+
+/*
+交换机
+*/
+func Switcher(header *iphdr.IpHeader, data []uint8)(*iphdr.IpHeader, []uint8)  {
+	log.Println("数据报经过交换机......")
+	return header, data
+}
