@@ -7,7 +7,7 @@ import (
 )
 
 func main()  {
-	log.Println("+++++++++++++++IP协议模拟程序-开始模拟+++++++++++++++")
+	log.Println("=============IP协议模拟程序-开始模拟=============")
 	fmt.Println()
 	log.Println("发送端发送数据报......")
 	header, data := pc.Send()
@@ -16,4 +16,6 @@ func main()  {
 	fmt.Println()
 	log.Println("接收端接收数据报......")
 	pc.Receive(header, data)
+	fmt.Println()
+	log.Println("=============IP协议模拟程序-模拟结束=============")
 }
