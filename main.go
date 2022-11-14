@@ -51,7 +51,7 @@ func receive(header *iphdr.IpHeader, data []uint8)  {
 
 	headerbytes := swpg.StructToBytes(header)
 	recheck := swpg.IPv4reCheckSum(headerbytes)
-	//数据报中目的地址不是本机, 或数据报损坏(recheck=0xFFFF), 丢弃数据报
+	//数据报中目的地址不是本机, 或数据报损坏(recheck!=0xFFFF), 丢弃数据报
 	if header.DestinationAddress == native_addr_uint32 && recheck == 0xFFFF {
 		log.Println("数据报中目的地址是本机, 且数据报未损坏, 读取数据报中内容...")
 		log.Println("接收到的数据报:")
