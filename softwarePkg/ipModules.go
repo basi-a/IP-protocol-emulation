@@ -66,6 +66,7 @@ func IpReassemblyModule(header *iphdr.IpHeader, data []uint8, MTU int) []uint8 {
 	if header.FlagsAndFragementOffset == 0x4000 {
 		return data
 	}
+	/*本程序暂不支持分片, 所以对分片重装也不支持*/
 	return nil
 }
 
