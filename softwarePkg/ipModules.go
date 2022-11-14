@@ -3,7 +3,7 @@ package softwarepkg
 import (
 	iphdr "IPv4SoftwarePkg/ipheader"
 	"log"
-
+	"os"
 )
 
 /*
@@ -53,9 +53,9 @@ func IpProcessingModule(header *iphdr.IpHeader, data []uint8, native_addr uint32
 		return nil, nil
 	}
 	/*数据报发送到转发模块*/
-	IpForwardingModule(header, data, MTU)
+	header, data = IpForwardingModule(header, data, MTU)
 	log.Println("数据报已经发送到转发模块!!!")
-	return nil, nil
+	return header, data
 }
 
 /*
@@ -72,16 +72,24 @@ func IpReassemblyModule(header *iphdr.IpHeader, data []uint8, MTU int) []uint8 {
 /*
 转发模块
 */
-func IpForwardingModule(header *iphdr.IpHeader, data []uint8, MTU int) {
-	
+func IpForwardingModule(header *iphdr.IpHeader, data []uint8, MTU int)(*iphdr.IpHeader, []uint8) {
+	/*同网段转发给目标*/
+	header, data = IpFragmentationModule(header, data, MTU)
+	/*不同网段转发给网关, 暂未实现...*/
+	return header, data
 }
 
 /*
 分片模块
 */
-func IpFragmentationModule(header *iphdr.IpHeader, data []uint8, MTU int) {
+func IpFragmentationModule(header *iphdr.IpHeader, data []uint8, MTU int)(*iphdr.IpHeader, []uint8)  {
+	/*数据报总长度大于MTU应该分片*/
 	if header.Length > uint16(MTU){
-		log.Println("数据报总长度大于MTU") 
-		
+		log.Println("数据报总长度大于MTU")
+		log.Println("对不起, 本程序暂不支持分片!!!!!")
+		os.Exit(1)
+	}else{
+		log.Println("数据报总长度小于等于MTU, 无需分片, 直接发送数据报")
 	}
+	return header, data
 }
