@@ -22,9 +22,9 @@ func send()(*iphdr.IpHeader, []uint8)  {
 
 	//发送端信息
 	log.Println("发送端信息")
-	log.Println("\tIPv4: ", native_addr)
-	log.Println("\t默认网关: ", gateway_addr)
-	log.Println("\t子网掩码: ", subnet_mask)
+	log.Println("\tIPv4:    ", native_addr)
+	log.Println("\t默认网关:", gateway_addr)
+	log.Println("\t子网掩码:", subnet_mask)
 	//数据封装IP数据报
 	header, data := swpg.IpAddingModule(src_addr_uint32, dest_addr_uint32)
 	//处理模块处理数据报
@@ -42,9 +42,9 @@ func receive(header *iphdr.IpHeader, data []uint8)  {
 
 	//接收端信息
 	log.Println("接收端信息")
-	log.Println("\tIPv4: ", native_addr)
-	log.Println("\t默认网关: ", gateway_addr)
-	log.Println("\t子网掩码: ", subnet_mask)
+	log.Println("\tIPv4:    ", native_addr)
+	log.Println("\t默认网关:", gateway_addr)
+	log.Println("\t子网掩码:", subnet_mask)
 
 	//处理模块处理接收到的数据报
 	header, data = swpg.IpProcessingModule(header, data, native_addr_uint32, gateway_addr_uint32, MTU)
@@ -53,7 +53,7 @@ func receive(header *iphdr.IpHeader, data []uint8)  {
 	recheck := swpg.IPv4reCheckSum(headerbytes)
 	//数据报中目的地址不是本机, 或数据报损坏(recheck=0xFFFF), 丢弃数据报
 	if header.DestinationAddress == native_addr_uint32 && recheck == 0xFFFF {
-		log.Println("数据报中目的地址是本机, 且数据报未损坏")
+		log.Println("数据报中目的地址是本机, 且数据报未损坏, 读取数据报中内容...")
 		log.Println("接收到的数据报:")
 		log.Println("首部:",headerbytes)
 		log.Println("数据:",data)
